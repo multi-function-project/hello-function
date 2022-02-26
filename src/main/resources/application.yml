@@ -1,17 +1,9 @@
 spring:
   main:
-    web-application-type: REACTIVE
+    web-application-type: REACTIVE # TODO:本番はNONEにしたい
   cloud:
     function:
       definition: helloFunction
       web:
         export:
           debug: true
-# debug: true
-
-# logging:
-#   level:
-#     org:
-#       springframework:
-#         cloud:
-#           function: DEBUG

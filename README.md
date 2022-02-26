@@ -27,12 +27,22 @@ docker run -v $(pwd):/build-work -v ~/.m2:/root/.m2 -it --name build-graalvm ghc
 ~~~
 2回目以降
 ~~~
-docker start build-graalvm
+docker start i- build-graalvm
 ~~~
 
-ラムダのデプロイ
+実行
 ~~~
-aws lambda update-function-code --function-name hello-function --zip-file fileb://target/hello-function1.0.0-native-zip.zip
+./target/hello-function
+./target/hello-function --spring.profiles.active=develop-local
+~~~
+
+
+ラムダのデプロイ
+ラムダは事前にカスタムラインタイム「Custom runtime on Amazon Linux 2」ハンドラ「org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest」で作成しておく
+org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+
+~~~
+aws lambda update-function-code --function-name hello-function --zip-file fileb://target/hello-function-1.0.0-SNAPSHOT-native-zip.zip
 ~~~
 
 ### Native-fileを含むLambdaカスタムランタイムイメージを作成する場合
