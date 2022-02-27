@@ -12,6 +12,7 @@ import com.example.hello.model.HelloOutput;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.nativex.hint.ResourceHint;
 import org.springframework.nativex.hint.SerializationHint;
 import org.springframework.nativex.hint.TypeHint;
 
@@ -19,6 +20,7 @@ import org.springframework.nativex.hint.TypeHint;
         // BigDecimalのシリアライズに必要
         BigDecimal.class, BigInteger.class, Number.class, String.class})
 @TypeHint(types = {StringUtil.class})
+@ResourceHint(patterns = {"messages.yml"})
 @ComponentScan(basePackages = "com.example")
 @SpringBootApplication
 public class Application {
