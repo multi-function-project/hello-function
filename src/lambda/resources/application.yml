@@ -1,6 +1,6 @@
 spring:
   main:
-    web-application-type: REACTIVE
+    web-application-type: NONE
   cloud:
     function:
       definition: helloFunction

@@ -1,6 +1,16 @@
 spring:
-  profiles:
-    group:
-      develop-local:
-        - develop-local
-    default: production
+  main:
+    web-application-type: REACTIVE
+  cloud:
+    function:
+      definition: helloFunction
+      web:
+        export:
+          debug: true
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          function: DEBUG
