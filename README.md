@@ -23,7 +23,7 @@ ECRに登録
 https://www.graalvm.org/22.0/docs/getting-started/container-images/
 ~~~
 docker rm -f build-graalvm && \
-docker run -v $(pwd):/build-work -v ~/.m2:/root/.m2 -it --name build-graalvm ghcr.io/graalvm/graalvm-ce:latest bash -c "cd /build-work && ./mvnw clean package -D skipTests -P lambda"
+docker run -v $(pwd):/build-work -v ~/.m2:/root/.m2 -it --name build-graalvm ghcr.io/graalvm/graalvm-ce:latest bash -c "cd /build-work && ./mvnw clean package -D skipTests -P lambda && chmod 777 -R target"
 ~~~
 2回目以降
 ~~~

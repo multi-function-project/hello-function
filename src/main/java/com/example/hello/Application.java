@@ -5,6 +5,7 @@ import java.math.BigInteger;
 
 import com.example.common.model.CommonOutput;
 import com.example.common.model.ErrorOutput;
+import com.example.common.util.FileUtil;
 import com.example.common.util.StringUtil;
 import com.example.hello.model.HelloInput;
 import com.example.hello.model.HelloOutput;
@@ -20,6 +21,8 @@ import org.springframework.nativex.hint.TypeHint;
         // BigDecimalのシリアライズに必要
         BigDecimal.class, BigInteger.class, Number.class, String.class})
 @TypeHint(types = {StringUtil.class})
+@TypeHint(types = {FileUtil.class})
+@ResourceHint(patterns = {"data.csv"})
 @ResourceHint(patterns = {"messages.yml"})
 @ComponentScan(basePackages = "com.example")
 @SpringBootApplication
