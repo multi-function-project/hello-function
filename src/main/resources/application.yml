@@ -1,9 +1,6 @@
 spring:
-  main:
-    web-application-type: REACTIVE # TODO:本番はNONEにしたい
-  cloud:
-    function:
-      definition: helloFunction
-      web:
-        export:
-          debug: true
+  profiles:
+    group:
+      develop-local:
+        - develop-local
+    default: production
