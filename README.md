@@ -61,12 +61,7 @@ docker run -p 9000:8080 hello-function:latest
 呼出
 https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/images-test.html
 ~~~
-curl --location --request POST 'http://localhost:9000/2015-03-31/functions/function/invocations' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "message": "こんにちは",
-    "amount":10
-}'
+curl -XPOST "http://localhost:9000/2015-03-31/functions/function/invocations" -d '{"message": "こんにちは"}'
 ~~~
 
 ### Dockerコンテナの削除
