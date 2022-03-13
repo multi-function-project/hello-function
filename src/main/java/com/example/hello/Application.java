@@ -17,17 +17,24 @@ import org.springframework.nativex.hint.ResourceHint;
 import org.springframework.nativex.hint.SerializationHint;
 import org.springframework.nativex.hint.TypeHint;
 
-@SerializationHint(types = {HelloInput.class, HelloOutput.class, CommonOutput.class, ErrorOutput.class,
+@SerializationHint(types = { HelloInput.class, HelloOutput.class, CommonOutput.class, ErrorOutput.class,
         // BigDecimalのシリアライズに必要
-        BigDecimal.class, BigInteger.class, Number.class, String.class})
-@TypeHint(types = {StringUtil.class})
-@TypeHint(types = {FileUtil.class})
-@ResourceHint(patterns = {"data.csv"})
-@ResourceHint(patterns = {"messages.yml"})
+        BigDecimal.class, BigInteger.class, Number.class, String.class })
+@TypeHint(types = { StringUtil.class })
+@TypeHint(types = { FileUtil.class })
+@ResourceHint(patterns = { "data.csv" })
+@ResourceHint(patterns = { "messages.yml" })
 @ComponentScan(basePackages = "com.example")
 @SpringBootApplication
 public class Application {
+
+    /*
+     * You need this main method (empty) or explicit
+     * <start-class>example.FunctionConfiguration</start-class>
+     * in the POM to ensure boot plug-in makes the correct entry
+     */
     public static void main(String[] args) {
+        // empty unless using Custom runtime at which point it should include
         SpringApplication.run(Application.class, args);
     }
 }

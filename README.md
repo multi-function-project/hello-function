@@ -50,16 +50,18 @@ aws lambda update-function-code --function-name hello-function --zip-file fileb:
 ### Native-fileを含むLambdaカスタムランタイムイメージを作成する場合
 Dockerfileからイメージを作成
 ~~~
-docker build . -t hello-function:latest --progress=plain --no-cache
+GITHUB_TOKEN=＜GitHubのトークン＞
+docker build . -t hello-function:latest --progress=plain --no-cache  --build-arg GITHUB_TOKEN=${GITHUB_TOKEN}
 ~~~
 
 起動
 ~~~
-docker run -p 8080:8080 hello-function:latest
+docker run -p 9000:8080 hello-function:latest
 ~~~
 呼出
+https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/images-test.html
 ~~~
-curl --location --request POST 'http://localhost:8080/2015-03-31/functions/function/invocations' \
+curl --location --request POST 'http://localhost:9000/2015-03-31/functions/function/invocations' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "message": "こんにちは",
@@ -67,6 +69,16 @@ curl --location --request POST 'http://localhost:8080/2015-03-31/functions/funct
 }'
 ~~~
 
+### Dockerコンテナの削除
+~~~
+docker rm -f `docker ps -a -q`
+~~~
+
+### Dockerイメージの削除
+~~~
+docker rmi `docker images -q`
+docker image prune
+~~~
 
 ### ECRへのイメージ登録
 ~~~
