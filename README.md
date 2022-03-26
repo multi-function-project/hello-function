@@ -43,6 +43,18 @@ docker start i- build-graalvm
 ラムダは事前にカスタムラインタイム「Custom runtime on Amazon Linux 2」ハンドラ「org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest」で作成しておく
 org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
 
+AWS CLIのインストール
+~~~
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+~~~
+
+AWS認証情報を設定しておく
+~~~
+aws configure
+~~~
+
 ~~~
 aws lambda update-function-code --function-name hello-function --zip-file fileb://target/hello-function-1.0.0-SNAPSHOT-native-zip.zip
 ~~~
