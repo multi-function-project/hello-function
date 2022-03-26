@@ -58,8 +58,25 @@ aws configure
 ~~~
 FUNCTION_NAME=hello-function
 ALIAS=1-0-0
-aws lambda update-function-code --function-name ${FUNCTION_NAME} --name ${ALIAS} --zip-file fileb://target/hello-function-1.0.0-SNAPSHOT-native-zip.zip
+# publishをつけて新バージョンのlambdaを払い出し
+PUBLISH_RESULT=$(aws lambda update-function-code --function-name ${FUNCTION_NAME} --zip-file fileb://target/hello-function-1.0.0-SNAPSHOT-native-zip.zip --publish)
+# 最新バージョンの取得
+LAMBDA_TARGET_VERSION=$(echo ${PUBLISH_RESULT} | jq -r .Version)
+# エイリアスに最新バージョンを紐づけ
+aws lambda update-alias --function-name ${FUNCTION_NAME} --name ${ALIAS} --function-version ${LAMBDA_TARGET_VERSION}
 ~~~
+
+API-GATEWAY呼び出し
+~~~
+API_ID=XXXXXX
+API_VER=1-0-0
+API_KEY=XXXXXXXX
+curl --location --request POST 'https://${API_ID}.execute-api.ap-northeast-1.amazonaws.com/API_VER/hello' \
+--header 'x-api-key: ${API_KEY}' \
+--header 'Content-Type: application/json' \
+--data-raw '{"message":"こんにちは"}'
+~~~
+
 
 ### Native-fileを含むLambdaカスタムランタイムイメージを作成する場合
 Dockerfileからイメージを作成
@@ -102,6 +119,8 @@ docker tag function-demo:${TAG} ${ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.c
 # ECRにpush
 docker push ${ACCOUNT_ID}.dkr.ecr.ap-northeast-1.amazonaws.com/function-demo:${TAG}
 ~~~
+
+
 
 ### 参考URL
 Spring Native公式
