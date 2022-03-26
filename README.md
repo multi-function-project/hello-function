@@ -56,7 +56,9 @@ aws configure
 ~~~
 
 ~~~
-aws lambda update-function-code --function-name hello-function --zip-file fileb://target/hello-function-1.0.0-SNAPSHOT-native-zip.zip
+FUNCTION_NAME=hello-function
+ALIAS=1-0-0
+aws lambda update-function-code --function-name ${FUNCTION_NAME} --name ${ALIAS} --zip-file fileb://target/hello-function-1.0.0-SNAPSHOT-native-zip.zip
 ~~~
 
 ### Native-fileを含むLambdaカスタムランタイムイメージを作成する場合
