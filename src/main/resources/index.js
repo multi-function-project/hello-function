@@ -7,6 +7,10 @@ $(function () {
 
     $.ajax({
       type: "POST",
+      headers: {
+        "x-api-key": "30文字のキー",
+        // "Content-Type": "application/json",
+      },
       data: JSON.stringify(data), // JSONデータ本体
       url: "https://gonqxn392c.execute-api.ap-northeast-1.amazonaws.com/1-0-0/hello",
       dataType: "json",
@@ -24,7 +28,7 @@ $(function () {
       })
       // Ajaxリクエストが失敗した場合
       .fail(function (XMLHttpRequest, textStatus, errorThrown) {
-        alert(errorThrown);
+        console.log(errorThrown);
       });
   });
 });
