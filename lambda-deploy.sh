@@ -1,4 +1,8 @@
-##!/bin/bash
+#!/bin/bash
+
+# ビルド
+# ./mvnw clean package -P lambda -D skipNativeTests
+./mvnw clean package -P native -D skipTests
 
 FUNCTION_NAME=hello-function
 ALIAS=1-0-0
