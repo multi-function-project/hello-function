@@ -12,7 +12,7 @@ $(function () {
         // "Content-Type": "application/json",
       },
       data: JSON.stringify(data), // JSONデータ本体
-      url: "https://gonqxn392c.execute-api.ap-northeast-1.amazonaws.com/1-0-0/hello",
+      url: "http://hogehoge",
       dataType: "json",
     })
       // Ajaxリクエストが成功した場合
