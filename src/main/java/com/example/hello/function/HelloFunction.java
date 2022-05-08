@@ -1,5 +1,10 @@
 package com.example.hello.function;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+
 import com.example.common.exception.BusinessException;
 import com.example.common.exception.SystemException;
 import com.example.common.model.CommonOutput;
@@ -8,14 +13,14 @@ import com.example.hello.business.HelloService;
 import com.example.hello.business.HelloValidationService;
 import com.example.hello.model.HelloInput;
 import com.example.hello.model.HelloOutput;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
-import java.util.Optional;
-import java.util.function.Function;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Component("helloFunction")
 @Slf4j
@@ -54,7 +59,19 @@ public class HelloFunction implements Function<Message<HelloInput>, Message<Comm
             HelloOutput helloWorldOutput = helloService.execute(helloInput);
             output.setResult(helloWorldOutput);
             log.info("[Output]" + helloWorldOutput.toString());
-            return MessageBuilder.withPayload(output).build();
+
+            // cors
+            // https://zenn.dev/masaino/articles/dd9ee709799af0
+            Map<String, Object> headers = new HashMap<>();
+            headers.put("Access-Control-Allow-Headers", "Content-Type"); // (6)
+            headers.put("Access-Control-Allow-Origin", "*"); // (6)
+            headers.put("Access-Control-Allow-Methods", "OPTIONS,POST,GET"); // (6)
+            headers.put("statusCode", 200); // (6)
+
+            MessageHeaders messageHeaders = new MessageHeaders(headers);
+            return MessageBuilder.createMessage(
+                    output, messageHeaders);
+            // return MessageBuilder.withPayload(output).build();
 
         } catch (Exception e) {
             log.error(e.getMessage(), e);
